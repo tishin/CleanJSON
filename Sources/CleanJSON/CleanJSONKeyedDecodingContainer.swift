@@ -75,7 +75,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Bool.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -100,7 +100,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -125,7 +125,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int8.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -150,7 +150,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int16.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -175,7 +175,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int32.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -200,7 +200,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int64.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -225,7 +225,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -250,7 +250,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt8.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -275,7 +275,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt16.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -300,7 +300,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt32.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -325,7 +325,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt64.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -350,7 +350,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Float.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -375,7 +375,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Double.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -400,7 +400,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: String.self) else {
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -434,7 +434,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         func decodeObject(from decoder: _CleanJSONDecoder) throws -> T {
             if let value = try decoder.unbox(entry, as: type) { return value }
             
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:
@@ -577,7 +577,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -598,7 +598,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -619,7 +619,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -640,7 +640,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -661,7 +661,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -682,7 +682,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -703,7 +703,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -724,7 +724,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -745,7 +745,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -766,7 +766,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -787,7 +787,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -808,7 +808,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -829,7 +829,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -850,7 +850,7 @@ extension CleanJSONKeyedDecodingContainer {
         
         if let value = try decoder.unbox(entry, as: type) { return value }
         
-        switch decoder.options.valueNotFoundDecodingStrategy {
+        switch decoder.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
         case .useDefaultValue:
@@ -884,7 +884,7 @@ extension CleanJSONKeyedDecodingContainer {
         func decodeObject(from decoder: _CleanJSONDecoder) throws -> T? {
             if let value = try decoder.unbox(entry, as: type) { return value }
             
-            switch decoder.options.valueNotFoundDecodingStrategy {
+            switch decoder.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
             case .useDefaultValue:

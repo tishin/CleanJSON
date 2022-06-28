@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import SwiftyBeaver
 
 extension _CleanJSONDecoder {
+    
+    func check<T>(_ value: Any, as expectedType: T.Type) {
+        if value as? T == nil {
+            SwiftyBeaver.warning("Type mismatch at \(codingPathString), expected \(T.self), got \(type(of: value))", context: nil)
+        }
+    }
     
     /// Returns the given value unboxed from a container.
     func unbox(_ value: Any, as type: Bool.Type) throws -> Bool? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Bool.self)
         
         if let number = value as? NSNumber {
             // TODO: Add a flag to coerce non-boolean numbers into Bools?
@@ -34,6 +42,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Int.Type) throws -> Int? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Int.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -51,6 +60,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Int8.Type) throws -> Int8? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Int8.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -68,6 +78,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Int16.Type) throws -> Int16? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Int16.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -85,6 +96,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Int32.Type) throws -> Int32? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Int32.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -102,6 +114,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Int64.Type) throws -> Int64? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Int64.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -119,6 +132,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: UInt.Type) throws -> UInt? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: UInt.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -136,6 +150,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: UInt8.Type) throws -> UInt8? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: UInt8.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -153,6 +168,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: UInt16.Type) throws -> UInt16? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: UInt16.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -170,6 +186,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: UInt32.Type) throws -> UInt32? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: UInt32.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -187,6 +204,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: UInt64.Type) throws -> UInt64? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: UInt64.self)
         
         guard let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -204,6 +222,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Float.Type) throws -> Float? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Float.self)
         
         if let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -252,6 +271,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: Double.Type) throws -> Double? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: Double.self)
         
         if let number = value as? NSNumber,
             number !== kCFBooleanTrue,
@@ -289,6 +309,7 @@ extension _CleanJSONDecoder {
     
     func unbox(_ value: Any, as type: String.Type) throws -> String? {
         guard !(value is NSNull) else { return nil }
+        check(value, as: String.self)
         
         guard let string = value as? String else { return nil }
         

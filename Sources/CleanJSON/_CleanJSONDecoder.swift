@@ -7,6 +7,20 @@
 //
 
 import Foundation
+import SwiftyBeaver
+
+extension Decoder {
+    
+    public var codingPathString: String {
+        return codingPath.map { element -> String in
+            if let intValue = element.intValue {
+                return String(intValue)
+            } else {
+                return "\"" + element.stringValue + "\""
+            }
+        }.joined(separator: ".")
+    }
+}
 
 final class _CleanJSONDecoder: CleanDecoder {
     
@@ -22,6 +36,11 @@ final class _CleanJSONDecoder: CleanDecoder {
     /// Contextual user-provided information for use during encoding.
     public var userInfo: [CodingUserInfoKey : Any] {
         return self.options.userInfo
+    }
+    
+    var valueNotFoundDecodingStrategy: CleanJSONDecoder.ValueNotFoundDecodingStrategy {
+        SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
+        return options.valueNotFoundDecodingStrategy
     }
     
     // MARK: - Initialization

@@ -44,7 +44,7 @@ extension _CleanJSONDecoder {
     func decode(as type: Date.Type) throws -> Date {
         if let date = try unbox(storage.topContainer, as: type) { return date }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: codingPath)
         case .useDefaultValue:
@@ -57,7 +57,7 @@ extension _CleanJSONDecoder {
     func decode(as type: Data.Type) throws -> Data {
         if let data = try unbox(storage.topContainer, as: type) { return data }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: codingPath)
         case .useDefaultValue:
@@ -70,7 +70,7 @@ extension _CleanJSONDecoder {
     func decode(as type: Decimal.Type) throws -> Decimal {
         if let decimal = try unbox(storage.topContainer, as: type) { return decimal }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.valueNotFound(type, codingPath: codingPath)
         case .useDefaultValue:
@@ -90,7 +90,7 @@ extension _CleanJSONDecoder {
     ) throws -> Date? {
         if let date = try unbox(value, as: type) { return date }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: codingPath)
         case .useDefaultValue:
@@ -109,7 +109,7 @@ extension _CleanJSONDecoder {
     ) throws -> Data? {
         if let data = try unbox(value, as: type) { return data }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: codingPath)
         case .useDefaultValue:
@@ -128,7 +128,7 @@ extension _CleanJSONDecoder {
     ) throws -> URL? {
         if let url = try unbox(value, as: type) { return url }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: codingPath)
         case .useDefaultValue:
@@ -147,7 +147,7 @@ extension _CleanJSONDecoder {
     ) throws -> Decimal? {
         if let decimal = try unbox(value, as: type) { return decimal }
         
-        switch options.valueNotFoundDecodingStrategy {
+        switch valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: codingPath)
         case .useDefaultValue:

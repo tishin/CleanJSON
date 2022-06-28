@@ -8,6 +8,7 @@
 //  Reference: https://github.com/line/line-sdk-ios-swift/blob/master/LineSDK/LineSDK/Networking/Model/CustomizeCoding/CodingExtension.swift
 
 import Foundation
+import SwiftyBeaver
 
 public protocol CaseDefaultable: RawRepresentable {
     
@@ -20,7 +21,12 @@ public extension CaseDefaultable where Self: Decodable, Self.RawValue: Decodable
         guard let _decoder = decoder as? _CleanJSONDecoder else {
             let container = try decoder.singleValueContainer()
             let rawValue = try container.decode(RawValue.self)
-            self = Self.init(rawValue: rawValue) ?? Self.defaultCase
+            if let value = Self.init(rawValue: rawValue) {
+                self = value
+            } else {
+                SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(Self.self) at \(decoder.codingPathString)", context: nil)
+                self = Self.defaultCase
+            }
             return
         }
         
@@ -35,7 +41,12 @@ private extension _CleanJSONDecoder {
         T: Decodable,
         T.RawValue: Decodable
     {
-        guard !decodeNil(), !storage.containers.isEmpty, storage.topContainer is T.RawValue else {
+        guard !decodeNil() else {
+            SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
+            return T.defaultCase
+        }
+        check(storage.topContainer, as: T.RawValue.self)
+        guard !storage.containers.isEmpty, storage.topContainer is T.RawValue else {
             return T.defaultCase
         }
         
@@ -45,10 +56,20 @@ private extension _CleanJSONDecoder {
                 return T.defaultCase
             }
             
-            return T.init(rawValue: rawValue) ?? T.defaultCase
+            if let value = T.init(rawValue: rawValue) {
+                return value
+            } else {
+                SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(T.self) at \(codingPathString)", context: nil)
+                return T.defaultCase
+            }
         }
         
         let rawValue = try decode(T.RawValue.self)
-        return T.init(rawValue: rawValue) ?? T.defaultCase
+        if let value = T.init(rawValue: rawValue) {
+            return value
+        } else {
+            SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(T.self) at \(codingPathString)", context: nil)
+            return T.defaultCase
+        }
     }
 }
