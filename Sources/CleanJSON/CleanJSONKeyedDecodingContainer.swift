@@ -450,7 +450,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         if let _ = String.defaultValue as? T { return try decodeObject(from: decoder) }
         
         /// 若原始值不是有效的 JSON 字符串则正常解析
-        guard let string = try decoder.unbox(entry, as: String.self),
+        guard let string = entry as? String,
               let jsonObject = string.toJSONObject()
         else {
             return try decodeObject(from: decoder)
