@@ -12,9 +12,11 @@ import SwiftyBeaver
 extension _CleanJSONDecoder {
     
     func check<T>(_ value: Any, as expectedType: T.Type) {
+        #if DEBUG
         if value as? T == nil {
             SwiftyBeaver.warning("Type mismatch at \(codingPathString), expected \(T.self), got \(type(of: value))", context: nil)
         }
+        #endif
     }
     
     /// Returns the given value unboxed from a container.

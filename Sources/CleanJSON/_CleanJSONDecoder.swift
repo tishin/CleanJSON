@@ -38,11 +38,6 @@ final class _CleanJSONDecoder: CleanDecoder {
         return self.options.userInfo
     }
     
-    var valueNotFoundDecodingStrategy: CleanJSONDecoder.ValueNotFoundDecodingStrategy {
-        SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
-        return options.valueNotFoundDecodingStrategy
-    }
-    
     // MARK: - Initialization
     
     /// Initializes `self` with the given top-level container and options.

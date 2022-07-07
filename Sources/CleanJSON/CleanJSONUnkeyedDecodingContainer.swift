@@ -79,7 +79,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> Bool {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 Bool.self,
@@ -113,7 +114,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> Int {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 Int.self,
@@ -211,7 +213,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> UInt {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 UInt.self,
@@ -309,7 +312,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> Float {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 Float.self,
@@ -343,7 +347,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> Double {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 Double.self,
@@ -377,7 +382,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     }
     
     private mutating func decode(isAtEnd: Bool = false) throws -> String {
-        switch decoder.valueNotFoundDecodingStrategy {
+        decoder.debugNil()
+        switch decoder.options.valueNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Unkeyed.valueNotFound(
                 String.self,

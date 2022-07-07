@@ -24,7 +24,9 @@ public extension CaseDefaultable where Self: Decodable, Self.RawValue: Decodable
             if let value = Self.init(rawValue: rawValue) {
                 self = value
             } else {
+                #if DEBUG
                 SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(Self.self) at \(decoder.codingPathString)", context: nil)
+                #endif
                 self = Self.defaultCase
             }
             return
@@ -42,7 +44,9 @@ private extension _CleanJSONDecoder {
         T.RawValue: Decodable
     {
         guard !decodeNil() else {
+            #if DEBUG
             SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
+            #endif
             return T.defaultCase
         }
         check(storage.topContainer, as: T.RawValue.self)
@@ -59,7 +63,9 @@ private extension _CleanJSONDecoder {
             if let value = T.init(rawValue: rawValue) {
                 return value
             } else {
+                #if DEBUG
                 SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(T.self) at \(codingPathString)", context: nil)
+                #endif
                 return T.defaultCase
             }
         }
@@ -68,7 +74,9 @@ private extension _CleanJSONDecoder {
         if let value = T.init(rawValue: rawValue) {
             return value
         } else {
+            #if DEBUG
             SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(T.self) at \(codingPathString)", context: nil)
+            #endif
             return T.defaultCase
         }
     }
