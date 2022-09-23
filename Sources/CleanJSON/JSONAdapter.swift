@@ -97,6 +97,9 @@ public extension JSONAdapter {
     
     @inline(__always)
     func adapt(_ decoder: CleanDecoder) throws -> Bool {
+        if let value = try? adaptBoolIfPresent(decoder) {
+            return value
+        }
         return Bool.defaultValue
     }
     
@@ -199,6 +202,22 @@ public extension JSONAdapter {
 
 public extension JSONAdapter {
     
+    private func adaptBoolIfPresent(_ decoder: CleanDecoder) throws -> Bool? {
+        guard !decoder.decodeNil() else { return nil }
+        
+        if let string: String = try decoder.decodeIfPresent(String.self) {
+            if string == "true" {
+                return true
+            } else if string == "false" {
+                return false
+            } else if let double = Double(string) {
+                return double != 0
+            }
+        }
+        
+        return nil
+    }
+    
     private func adaptIntegerIfPresent<I: FixedWidthInteger & Defaultable>(_ decoder: CleanDecoder) throws -> I? {
         guard !decoder.decodeNil() else { return nil }
         
@@ -211,17 +230,7 @@ public extension JSONAdapter {
     
     @inline(__always)
     func adaptIfPresent(_ decoder: CleanDecoder) throws -> Bool? {
-        guard !decoder.decodeNil() else { return nil }
-        if let string: String = try decoder.decodeIfPresent(String.self) {
-            if string == "true" {
-                return true
-            } else if string == "false" {
-                return false
-            } else if let double = Double(string) {
-                return double != 0
-            }
-        }
-        return nil
+        return try adaptBoolIfPresent(decoder)
     }
     
     @inline(__always)
