@@ -211,6 +211,16 @@ public extension JSONAdapter {
     
     @inline(__always)
     func adaptIfPresent(_ decoder: CleanDecoder) throws -> Bool? {
+        guard !decoder.decodeNil() else { return nil }
+        if let string: String = try decoder.decodeIfPresent(String.self) {
+            if string == "true" {
+                return true
+            } else if string == "false" {
+                return false
+            } else if let double = Double(string) {
+                return double != 0
+            }
+        }
         return nil
     }
     
