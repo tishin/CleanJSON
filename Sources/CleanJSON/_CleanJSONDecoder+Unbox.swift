@@ -171,9 +171,7 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Float.self)
         
-        if let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse {
+        if let number = value as? NSNumber {
             // We are willing to return a Float by losing precision:
             // * If the original value was integral,
             //   * and the integral value was > Float.greatestFiniteMagnitude, we will fail
@@ -220,9 +218,7 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Double.self)
         
-        if let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse {
+        if let number = value as? NSNumber {
             // We are always willing to return the number as a Double:
             // * If the original value was integral, it is guaranteed to fit in a Double; we are willing to lose precision past 2^53 if you encoded a UInt64 but requested a Double
             // * If it was a Float or Double, you will get back the precise value
