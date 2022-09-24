@@ -19,6 +19,12 @@ extension _CleanJSONDecoder {
         #endif
     }
     
+    func checkFractionLoss(in value: NSNumber, from origin: NSNumber) {
+        if value != origin {
+            SwiftyBeaver.warning("Fraction loss at \(codingPathString), value=\(origin)", context: nil)
+        }
+    }
+    
     /// Returns the given value unboxed from a container.
     func unbox(_ value: Any, as type: Bool.Type) throws -> Bool? {
         guard !(value is NSNull) else { return nil }
@@ -42,10 +48,7 @@ extension _CleanJSONDecoder {
         }
         
         let int = number.intValue
-        guard NSNumber(value: int) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: int), from: number)
         return int
     }
     
@@ -60,10 +63,7 @@ extension _CleanJSONDecoder {
         }
         
         let int8 = number.int8Value
-        guard NSNumber(value: int8) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: int8), from: number)
         return int8
     }
     
@@ -78,10 +78,7 @@ extension _CleanJSONDecoder {
         }
         
         let int16 = number.int16Value
-        guard NSNumber(value: int16) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: int16), from: number)
         return int16
     }
     
@@ -96,10 +93,7 @@ extension _CleanJSONDecoder {
         }
         
         let int32 = number.int32Value
-        guard NSNumber(value: int32) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: int32), from: number)
         return int32
     }
     
@@ -114,10 +108,7 @@ extension _CleanJSONDecoder {
         }
         
         let int64 = number.int64Value
-        guard NSNumber(value: int64) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: int64), from: number)
         return int64
     }
     
@@ -132,10 +123,7 @@ extension _CleanJSONDecoder {
         }
         
         let uint = number.uintValue
-        guard NSNumber(value: uint) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: uint), from: number)
         return uint
     }
     
@@ -150,10 +138,7 @@ extension _CleanJSONDecoder {
         }
         
         let uint8 = number.uint8Value
-        guard NSNumber(value: uint8) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: uint8), from: number)
         return uint8
     }
     
@@ -168,10 +153,7 @@ extension _CleanJSONDecoder {
         }
         
         let uint16 = number.uint16Value
-        guard NSNumber(value: uint16) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: uint16), from: number)
         return uint16
     }
     
@@ -186,10 +168,7 @@ extension _CleanJSONDecoder {
         }
         
         let uint32 = number.uint32Value
-        guard NSNumber(value: uint32) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: uint32), from: number)
         return uint32
     }
     
@@ -204,10 +183,7 @@ extension _CleanJSONDecoder {
         }
         
         let uint64 = number.uint64Value
-        guard NSNumber(value: uint64) == number else {
-            return nil
-        }
-        
+        checkFractionLoss(in: NSNumber(value: uint64), from: number)
         return uint64
     }
     
