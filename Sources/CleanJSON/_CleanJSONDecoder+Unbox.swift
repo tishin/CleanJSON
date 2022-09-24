@@ -41,10 +41,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Int.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let int = number.intValue
@@ -56,10 +54,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Int8.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let int8 = number.int8Value
@@ -71,10 +67,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Int16.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let int16 = number.int16Value
@@ -86,10 +80,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Int32.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let int32 = number.int32Value
@@ -101,10 +93,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: Int64.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let int64 = number.int64Value
@@ -116,10 +106,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: UInt.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let uint = number.uintValue
@@ -131,10 +119,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: UInt8.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let uint8 = number.uint8Value
@@ -146,10 +132,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: UInt16.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let uint16 = number.uint16Value
@@ -161,10 +145,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: UInt32.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let uint32 = number.uint32Value
@@ -176,10 +158,8 @@ extension _CleanJSONDecoder {
         guard !(value is NSNull) else { return nil }
         check(value, as: UInt64.self)
         
-        guard let number = value as? NSNumber,
-            number !== kCFBooleanTrue,
-            number !== kCFBooleanFalse else {
-                return nil
+        guard let number = value as? NSNumber else {
+            return nil
         }
         
         let uint64 = number.uint64Value
