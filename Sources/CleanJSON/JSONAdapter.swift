@@ -177,9 +177,7 @@ public extension JSONAdapter {
     
     @inline(__always)
     func adapt(_ decoder: CleanDecoder) throws -> String {
-        guard !decoder.decodeNil() else { return String.defaultValue }
-        
-        return String(describing: decoder.topContainer)
+        return try adaptStringIfPresent(decoder) ?? String.defaultValue
     }
     
     @inline(__always)
@@ -216,6 +214,20 @@ public extension JSONAdapter {
         }
         
         return nil
+    }
+    
+    private func adaptStringIfPresent(_ decoder: CleanDecoder) throws -> String? {
+        guard !decoder.decodeNil() else { return nil }
+        
+        if let number = decoder.topContainer as? NSNumber {
+            if number === kCFBooleanTrue {
+                return "true"
+            } else if number === kCFBooleanFalse {
+                return "false"
+            }
+        }
+        
+        return String(describing: decoder.topContainer)
     }
     
     private func adaptIntegerIfPresent<I: FixedWidthInteger & Defaultable>(_ decoder: CleanDecoder) throws -> I? {
@@ -307,7 +319,7 @@ public extension JSONAdapter {
     
     @inline(__always)
     func adaptIfPresent(_ decoder: CleanDecoder) throws -> String? {
-        return nil
+        return try adaptStringIfPresent(decoder)
     }
     
     @inline(__always)
