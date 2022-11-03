@@ -438,7 +438,11 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
             case .useDefaultValue:
                 decoder.codingPath.append(key)
                 defer { decoder.codingPath.removeLast() }
-                return try decoder.decodeAsDefaultValue()
+                if let object = try? decoder.unbox(NSNull(), as: T.self) {
+                    return object
+                } else {
+                    return try decoder.decodeAsDefaultValue()
+                }
             }
         }
         
