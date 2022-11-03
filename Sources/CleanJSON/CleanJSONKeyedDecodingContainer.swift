@@ -59,7 +59,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     public func decodeNil(forKey key: Key) throws -> Bool {
         guard let entry = self.container[key.stringValue] else {
-            throw DecodingError.Keyed.keyNotFound(key, codingPath: decoder.codingPath)
+            return true
         }
         
         return entry is NSNull
