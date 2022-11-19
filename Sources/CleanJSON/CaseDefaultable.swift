@@ -13,6 +13,17 @@ import SwiftyBeaver
 public protocol CaseDefaultable: RawRepresentable {
     
     static var defaultCase: Self { get }
+    
+    static func adapt(rawValue: RawValue) -> RawValue?
+    
+}
+
+public extension CaseDefaultable where RawValue: FixedWidthInteger {
+    
+    static func adapt(rawValue: RawValue) -> RawValue? {
+        return nil
+    }
+    
 }
 
 public extension CaseDefaultable where Self: Decodable, Self.RawValue: Decodable {
@@ -22,6 +33,11 @@ public extension CaseDefaultable where Self: Decodable, Self.RawValue: Decodable
             let container = try decoder.singleValueContainer()
             let rawValue = try container.decode(RawValue.self)
             if let value = Self.init(rawValue: rawValue) {
+                self = value
+            } else if let adaptedRawValue = Self.adapt(rawValue: rawValue), let value = Self.init(rawValue: adaptedRawValue) {
+                #if DEBUG
+                SwiftyBeaver.warning("Adapted rawValue=\(rawValue) to rawValue=\(adaptedRawValue) of \(Self.self) at \(decoder.codingPathString)", context: nil)
+                #endif
                 self = value
             } else {
                 #if DEBUG
@@ -34,6 +50,30 @@ public extension CaseDefaultable where Self: Decodable, Self.RawValue: Decodable
         
         self = try _decoder.decodeCase(Self.self)
     }
+}
+
+public protocol UppercaseDefaultable: CaseDefaultable where RawValue == String {
+    
+}
+
+public extension UppercaseDefaultable {
+    
+    static func adapt(rawValue: RawValue) -> RawValue? {
+        return rawValue.uppercased()
+    }
+    
+}
+
+public protocol LowercaseDefaultable: CaseDefaultable where RawValue == String {
+    
+}
+
+public extension LowercaseDefaultable {
+    
+    static func adapt(rawValue: RawValue) -> RawValue? {
+        return rawValue.lowercased()
+    }
+    
 }
 
 private extension _CleanJSONDecoder {
@@ -54,24 +94,22 @@ private extension _CleanJSONDecoder {
             return T.defaultCase
         }
         
+        let rawValue: T.RawValue
         if let number = storage.topContainer as? NSNumber,
-            (number === kCFBooleanTrue || number === kCFBooleanFalse) {
-            guard let rawValue = number.boolValue as? T.RawValue else {
-                return T.defaultCase
-            }
-            
-            if let value = T.init(rawValue: rawValue) {
-                return value
-            } else {
-                #if DEBUG
-                SwiftyBeaver.warning("Unknown rawValue=\(rawValue) of \(T.self) at \(codingPathString)", context: nil)
-                #endif
-                return T.defaultCase
-            }
+           (number === kCFBooleanTrue || number === kCFBooleanFalse),
+           let boolRawValue = number.boolValue as? T.RawValue
+        {
+            rawValue = boolRawValue
+        } else {
+            rawValue = try decode(T.RawValue.self)
         }
         
-        let rawValue = try decode(T.RawValue.self)
         if let value = T.init(rawValue: rawValue) {
+            return value
+        } else if let adaptedRawValue = T.adapt(rawValue: rawValue), let value = T.init(rawValue: adaptedRawValue) {
+            #if DEBUG
+            SwiftyBeaver.warning("Adapted rawValue=\(rawValue) to rawValue=\(adaptedRawValue) of \(T.self) at \(codingPathString)", context: nil)
+            #endif
             return value
         } else {
             #if DEBUG
