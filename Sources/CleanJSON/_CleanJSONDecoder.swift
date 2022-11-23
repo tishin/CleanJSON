@@ -102,7 +102,7 @@ final class _CleanJSONDecoder: CleanDecoder {
                     debugDescription: "Cannot get unkeyed decoding container -- found null value instead."
                 )
             case .useEmptyContainer:
-                return CleanJSONUnkeyedDecodingContainer(referencing: self, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self, wrapping: nil)
             }
         }
         
@@ -115,7 +115,7 @@ final class _CleanJSONDecoder: CleanDecoder {
                     reality: storage.topContainer
                 )
             case .useEmptyContainer:
-                return CleanJSONUnkeyedDecodingContainer(referencing: self, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self, wrapping: nil)
             }
         }
         

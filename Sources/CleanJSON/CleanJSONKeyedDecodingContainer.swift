@@ -542,7 +542,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
             case .throw:
                 throw DecodingError.Nested.keyNotFound(key, codingPath: codingPath, isUnkeyed: true)
             case .useEmptyContainer:
-                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: nil)
             }
         }
         
@@ -554,7 +554,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
                     expectation: [Any].self, reality: value
                 )
             case .useEmptyContainer:
-                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: nil)
             }
         }
         

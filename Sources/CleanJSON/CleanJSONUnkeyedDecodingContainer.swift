@@ -15,7 +15,8 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     private let decoder: _CleanJSONDecoder
     
     /// A reference to the container we're reading from.
-    private let container: [Any]
+    private let container: [Any]    
+    private let optionalContainer: [Any]?
     
     /// The path of coding keys taken to get to this point in decoding.
     private(set) public var codingPath: [CodingKey]
@@ -26,9 +27,10 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     // MARK: - Initialization
     
     /// Initializes `self` by referencing the given decoder and container.
-    init(referencing decoder: _CleanJSONDecoder, wrapping container: [Any]) {
+    init(referencing decoder: _CleanJSONDecoder, wrapping container: [Any]?) {
         self.decoder = decoder
-        self.container = container
+        self.optionalContainer = container
+        self.container = container ?? []
         self.codingPath = decoder.codingPath
         self.currentIndex = 0
     }
@@ -36,11 +38,11 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
     // MARK: - UnkeyedDecodingContainer Methods
     
     public var count: Int? {
-        return self.container.count
+        return self.optionalContainer?.count
     }
     
     public var isAtEnd: Bool {
-        return self.currentIndex >= self.count!
+        return currentIndex >= container.count
     }
     
     public mutating func decodeNil() throws -> Bool {
@@ -508,7 +510,7 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
                 )
             case .useEmptyContainer:
                 self.currentIndex += 1
-                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: nil)
             }
         }
         
@@ -521,7 +523,7 @@ struct CleanJSONUnkeyedDecodingContainer : UnkeyedDecodingContainer {
                 )
             case .useEmptyContainer:
                 self.currentIndex += 1
-                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: [])
+                return CleanJSONUnkeyedDecodingContainer(referencing: self.decoder, wrapping: nil)
             }
         }
         
