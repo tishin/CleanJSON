@@ -18,7 +18,7 @@ extension Bool: Defaultable {
     }
 }
 
-extension FixedWidthInteger {
+extension AdditiveArithmetic {
     static var defaultValue: Self {
         return Self.zero
     }
@@ -34,18 +34,9 @@ extension UInt8: Defaultable {}
 extension UInt16: Defaultable {}
 extension UInt32: Defaultable {}
 extension UInt64: Defaultable {}
-
-extension Float: Defaultable {
-    static var defaultValue: Float {
-        return 0
-    }
-}
-
-extension Double: Defaultable {
-    static var defaultValue: Double {
-        return 0
-    }
-}
+extension Float: Defaultable {}
+extension Double: Defaultable {}
+extension Decimal: Defaultable {}
 
 extension String: Defaultable {
     static var defaultValue: String {
@@ -71,11 +62,5 @@ extension Date: Defaultable {
 extension Data: Defaultable {
     static var defaultValue: Data {
         return Data()
-    }
-}
-
-extension Decimal: Defaultable {
-    static var defaultValue: Decimal {
-        return Decimal(0)
     }
 }
