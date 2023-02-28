@@ -12,14 +12,20 @@ import SwiftyBeaver
 extension Decoder {
     
     public var codingPathString: String {
-        return codingPath.map { element -> String in
-            if let intValue = element.intValue {
-                return String(intValue)
-            } else {
-                return "\"" + element.stringValue + "\""
-            }
-        }.joined(separator: ".")
+        return codingPath.map({ $0.displayString }).joined(separator: ".")
     }
+}
+
+extension CodingKey {
+    
+    var displayString: String {
+        if let intValue = intValue {
+            return String(intValue)
+        } else {
+            return "\"" + stringValue + "\""
+        }
+    }
+    
 }
 
 final class _CleanJSONDecoder: CleanDecoder {

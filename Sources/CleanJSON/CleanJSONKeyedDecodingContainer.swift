@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyBeaver
 
 struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerProtocol {
     
@@ -987,6 +988,10 @@ private extension CleanJSONDecoder.KeyDecodingStrategy {
 private extension CleanJSONKeyedDecodingContainer {
     
     func decodeIfKeyNotFound<T>(_ key: Key) throws -> T where T: Decodable, T: Defaultable {
+        #if DEBUG
+        let codingPathString = (decoder.codingPath + [key]).map({ $0.displayString }).joined(separator: ".")
+        SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
+        #endif
         switch decoder.options.keyNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: decoder.codingPath)
