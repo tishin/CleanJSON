@@ -66,9 +66,20 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         return entry is NSNull
     }
     
+    private func getEntry(forKey key: Key) -> Any? {
+        let result: Any? = container[key.stringValue]
+        #if DEBUG
+        if result == nil || result is NSNull {
+            let codingPathString = (decoder.codingPath + [key]).pathString
+            SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
+        }
+        #endif
+        return result
+    }
+    
     @inline(__always)
     public func decode(_ type: Bool.Type, forKey key: Key) throws -> Bool {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -76,7 +87,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Bool.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -94,7 +104,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Int.Type, forKey key: Key) throws -> Int {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -102,7 +112,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -120,7 +129,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Int8.Type, forKey key: Key) throws -> Int8 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -128,7 +137,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int8.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -146,7 +154,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Int16.Type, forKey key: Key) throws -> Int16 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -154,7 +162,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int16.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -172,7 +179,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Int32.Type, forKey key: Key) throws -> Int32 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -180,7 +187,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int32.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -198,7 +204,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Int64.Type, forKey key: Key) throws -> Int64 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -206,7 +212,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Int64.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -224,7 +229,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: UInt.Type, forKey key: Key) throws -> UInt {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -232,7 +237,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -250,7 +254,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: UInt8.Type, forKey key: Key) throws -> UInt8 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -258,7 +262,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt8.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -276,7 +279,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: UInt16.Type, forKey key: Key) throws -> UInt16 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -284,7 +287,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt16.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -302,7 +304,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: UInt32.Type, forKey key: Key) throws -> UInt32 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -310,7 +312,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt32.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -328,7 +329,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: UInt64.Type, forKey key: Key) throws -> UInt64 {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -336,7 +337,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: UInt64.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -354,7 +354,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Float.Type, forKey key: Key) throws -> Float {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -362,7 +362,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Float.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -380,7 +379,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: Double.Type, forKey key: Key) throws -> Double {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -388,7 +387,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: Double.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -406,7 +404,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode(_ type: String.Type, forKey key: Key) throws -> String {
-        guard let entry = self.container[key.stringValue] else {
+        guard let entry = self.getEntry(forKey: key) else {
             return try decodeIfKeyNotFound(key)
         }
         
@@ -414,7 +412,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         defer { self.decoder.codingPath.removeLast() }
         
         guard let value = try self.decoder.unbox(entry, as: String.self) else {
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -432,7 +429,7 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode<T : Decodable>(_ type: T.Type, forKey key: Key) throws -> T {
-        guard let entry = container[key.stringValue] else {
+        guard let entry = getEntry(forKey: key) else {
             switch decoder.options.keyNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.keyNotFound(key, codingPath: decoder.codingPath)
@@ -453,7 +450,6 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
         func decodeObject(from decoder: _CleanJSONDecoder) throws -> T {
             if let value = try decoder.unbox(entry, as: type) { return value }
             
-        decoder.debugNil()
         switch decoder.options.valueNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.valueNotFound(type, codingPath: decoder.codingPath)
@@ -988,10 +984,6 @@ private extension CleanJSONDecoder.KeyDecodingStrategy {
 private extension CleanJSONKeyedDecodingContainer {
     
     func decodeIfKeyNotFound<T>(_ key: Key) throws -> T where T: Decodable, T: Defaultable {
-        #if DEBUG
-        let codingPathString = (decoder.codingPath + [key]).map({ $0.displayString }).joined(separator: ".")
-        SwiftyBeaver.warning("Unexpected null value at \(codingPathString)", context: nil)
-        #endif
         switch decoder.options.keyNotFoundDecodingStrategy {
         case .throw:
             throw DecodingError.Keyed.keyNotFound(key, codingPath: decoder.codingPath)

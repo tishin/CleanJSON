@@ -12,8 +12,16 @@ import SwiftyBeaver
 extension Decoder {
     
     public var codingPathString: String {
-        return codingPath.map({ $0.displayString }).joined(separator: ".")
+        return codingPath.pathString
     }
+}
+
+extension Array where Element == CodingKey {
+    
+    var pathString: String {
+        return map({ $0.displayString }).joined(separator: ".")
+    }
+    
 }
 
 extension CodingKey {
