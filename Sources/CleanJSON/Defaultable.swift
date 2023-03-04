@@ -44,6 +44,12 @@ extension String: Defaultable {
     }
 }
 
+extension URL: Defaultable {
+    static var defaultValue: URL {
+        return URL(fileURLWithPath: "")
+    }
+}
+
 extension Date: Defaultable {
     static var defaultValue: Date {
         return Date(timeIntervalSinceReferenceDate: 0)
