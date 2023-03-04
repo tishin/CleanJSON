@@ -13,20 +13,8 @@ extension _CleanJSONDecoder {
     func decodeAsDefaultValue<T: Decodable>() throws -> T {
         if let array = [] as? T {
             return array
-        } else if let string = String.defaultValue as? T {
-            return string
-        } else if let bool = Bool.defaultValue as? T {
-            return bool
-        } else if let int = Int.defaultValue as? T {
-            return int
-        }else if let double = Double.defaultValue as? T {
-            return double
-        } else if let date = Date.defaultValue(for: options.dateDecodingStrategy) as? T {
-            return date
-        } else if let data = Data.defaultValue as? T {
-            return data
-        } else if let decimal = Decimal.defaultValue as? T {
-            return decimal
+        } else if let DT = T.self as? Defaultable.Type, let value = DT.defaultValue as? T {
+            return value
         } else if let object = try? unbox([:], as: T.self) {
             return object
         }
