@@ -429,7 +429,13 @@ struct CleanJSONKeyedDecodingContainer<K : CodingKey>: KeyedDecodingContainerPro
     
     @inline(__always)
     public func decode<T : Decodable>(_ type: T.Type, forKey key: Key) throws -> T {
-        guard let entry = getEntry(forKey: key) else {
+        var value: Any?
+        if T.self is OptionalWrapping.Type {
+            value = container[key.stringValue]
+        } else {
+            value = getEntry(forKey: key)
+        }
+        guard let entry = value else {
             switch decoder.options.keyNotFoundDecodingStrategy {
             case .throw:
                 throw DecodingError.Keyed.keyNotFound(key, codingPath: decoder.codingPath)

@@ -8,6 +8,8 @@
 
 import Foundation
 
+public protocol OptionalWrapping {}
+
 extension CleanJSONDecoder {
     
     public enum KeyNotFoundDecodingStrategy {
